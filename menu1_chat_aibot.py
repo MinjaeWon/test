@@ -6,7 +6,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import openai
 
 # 모델 및 데이터 로드
-@st.cache_data
+#@st.cache_data
 def load_data():
     model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
     
