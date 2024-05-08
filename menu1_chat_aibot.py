@@ -6,7 +6,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import openai
 
 # 모델 및 데이터 로드
-#@st.cache_data
+@st.cache_data
 def load_data():
     model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
     
@@ -162,13 +162,20 @@ for message in st.session_state.history:
 
 
 #- 윗부분 메인페이지와 겹쳐서 막음(4/25)
-
+# 캐시된 데이터 및 리소스 클리어 기능
+def clear_cache():
+    st.cache_data.clear()
+    st.cache_resource.clear()
 
 
 
 
 # 사이드 바에 Streamlit UI
 with st.sidebar:
+    # 캐시 정리 버튼
+    if st.sidebar.button("캐시 정리"):
+        clear_cache()
+        st.sidebar.success("캐시가 성공적으로 정리되었습니다.")
     if st.sidebar.button("폭력 피해 탐지"):
         texts = [msg['content'] for msg in st.session_state.history if msg['role'] == 'user']
         bullying_results = [check_bullying(text, model) for text in texts]
