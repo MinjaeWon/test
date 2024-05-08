@@ -1,5 +1,5 @@
 streamlit
 openai
-SentenceTransformer
+SentenceTransformers
 pandas
 scikit-learn
