@@ -17,7 +17,7 @@ import openai
 @st.cache_data
 def load_data():
     model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
-    df = pd.read_csv('simri_dataset.csv',encoding='euc-kr')
+    df = pd.read_csv('simri_dataset.csv',encoding='latin1')
     df['embedding'] = df['embedding'].apply(json.loads)
     return model, df
 
