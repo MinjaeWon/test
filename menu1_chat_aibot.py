@@ -17,7 +17,7 @@ def load_data():
 model, df = load_data()
 
 # OpenAI API Key 설정
-openai.api_key = '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' # 나의 API 키
+openai.api_key = st.secrets["OPENAI_API_KEY"] # 나의 API 키
 
 def generate_response(text):
     embedding = model.encode(text)
