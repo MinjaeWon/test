@@ -1,8 +1,5 @@
 streamlit
 openai
-pillow
-requests
 SentenceTransformer
-cosine_similarity
 pandas
 scikit-learn
