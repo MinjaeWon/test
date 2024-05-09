@@ -58,6 +58,7 @@ def generate_gpt_response(text):
 # #학교폭력 의심 지수 측정
 def check_bullying(user_input):
     # 사용자 입력의 임베딩 계산
+    
     print("---user input", user_input )
     user_embedding = model.encode(user_input)
     # 사전 임베딩과의 유사도 계산
@@ -144,13 +145,17 @@ if query:
     answer = generate_response(query)  # 가상의 응답 생성 함수
 
     # 응답 로직 분기
-    print("--1--",answer )
-    if answer['distance'] < 0.15:
-        # 유사도가 낮으면 GPT 모델을 사용하여 응답 생성
-        response = generate_gpt_response(query)
-    else:
-        # 유사도가 높은 경우, 기존 챗봇 응답 사용
-        response = f"{answer['챗봇']}."
+    # print("--1--",answer )
+    # if answer['distance'] < 0.15:
+    #     # 유사도가 낮으면 GPT 모델을 사용하여 응답 생성
+    #     response = generate_gpt_response(query)
+    # else:
+    #     # 유사도가 높은 경우, 기존 챗봇 응답 사용
+    #     response = f"{answer['챗봇']}."
+
+    # 응답 로직 분기
+    response = f"{answer['챗봇']}."
+    
 
         # 챗봇 응답을 대화 기록에 저장
     st.session_state.history.append({"role": "assistant", "content": response})
@@ -162,20 +167,12 @@ for message in st.session_state.history:
 
 
 #- 윗부분 메인페이지와 겹쳐서 막음(4/25)
-# 캐시된 데이터 및 리소스 클리어 기능
-def clear_cache():
-    st.cache_data.clear()
-    st.cache_resource.clear()
-
 
 
 
 # 사이드 바에 Streamlit UI
 with st.sidebar:
-    # 캐시 정리 버튼
-    if st.sidebar.button("캐시 정리"):
-        clear_cache()
-        st.sidebar.success("캐시가 성공적으로 정리되었습니다.")
+
     if st.sidebar.button("폭력 피해 탐지"):
         texts = [msg['content'] for msg in st.session_state.history if msg['role'] == 'user']
         bullying_results = [check_bullying(text, model) for text in texts]
